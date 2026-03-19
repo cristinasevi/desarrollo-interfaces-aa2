@@ -1,0 +1,237 @@
+.movie-detail {
+  min-height: 100vh;
+  position: relative;
+}
+
+.movie-detail__backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 500px;
+  background-size: cover;
+  background-position: center;
+}
+
+.movie-detail__backdrop-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, 
+    rgba(0,0,0,0.7) 0%, 
+    var(--bg-primary) 100%
+  );
+}
+
+.movie-detail__content {
+  position: relative;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.movie-detail__header {
+  display: flex;
+  gap: 3rem;
+  padding-top: 4rem;
+  margin-bottom: 3rem;
+}
+
+.movie-detail__poster {
+  width: 300px;
+  min-width: 300px;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.movie-detail__info {
+  flex: 1;
+  color: white;
+}
+
+.movie-detail__info h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.movie-detail__meta {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  flex-wrap: wrap;
+}
+
+.movie-detail__rating {
+  background: rgba(255, 215, 0, 0.2);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  color: #ffd700;
+  font-weight: bold;
+}
+
+.movie-detail__genres {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.genre-tag {
+  background: var(--primary-color);
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+.movie-detail__favorite {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  transition: transform 0.2s ease;
+}
+
+.movie-detail__favorite:hover {
+  transform: scale(1.05);
+}
+
+.movie-detail__favorite.active {
+  background: #e63946;
+}
+
+.movie-detail__overview {
+  margin-bottom: 2rem;
+}
+
+.movie-detail__overview h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.movie-detail__overview p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-primary);
+}
+
+.movie-detail__section {
+  margin: 3rem 0;
+  color: var(--text-primary);
+}
+
+.movie-detail__section h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.movie-detail__cast {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1.5rem;
+}
+
+.cast-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.cast-card:hover {
+  transform: translateY(-5px);
+}
+
+.cast-card img {
+  width: 100%;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+}
+
+.cast-card__info {
+  padding: 1rem;
+}
+
+.cast-card__info h4 {
+  margin: 0 0 0.3rem 0;
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.cast-card__info p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.movie-detail__error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-primary);
+}
+
+.movie-detail__error h2 {
+  margin-bottom: 1rem;
+}
+
+.movie-detail__back {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: var(--primary-color);
+  color: white;
+  border-radius: 8px;
+  margin-top: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.movie-detail__back:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .movie-detail__header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-top: 2rem;
+  }
+
+  .movie-detail__poster {
+    width: 250px;
+    min-width: 250px;
+  }
+
+  .movie-detail__info h1 {
+    font-size: 2rem;
+  }
+
+  .movie-detail__meta {
+    justify-content: center;
+  }
+
+  .movie-detail__genres {
+    justify-content: center;
+  }
+
+  .movie-detail__cast {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1rem;
+  }
+
+  .movie-detail__content {
+    padding: 1rem;
+  }
+}
