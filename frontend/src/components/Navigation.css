@@ -85,3 +85,65 @@
     font-size: 0.9rem;
   }
 }
+
+.navigation__actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navigation__user {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.navigation__username {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.navigation__logout {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 0.4rem 0.8rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.navigation__logout:hover {
+  border-color: #e63946;
+  color: #e63946;
+}
+
+.navigation__auth {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.navigation__login {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+.navigation__login:hover {
+  color: var(--primary-color);
+}
+
+.navigation__register {
+  background: var(--primary-color);
+  color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: opacity 0.2s ease;
+}
+
+.navigation__register:hover {
+  opacity: 0.85;
+}
