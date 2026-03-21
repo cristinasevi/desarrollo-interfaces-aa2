@@ -21,6 +21,9 @@ interface Usuario {
 
 export default function Dashboard() {
   const [estadisticas, setEstadisticas] = useState<Estadisticas | null>(null);
+  const [cargandoStats, setCargandoStats] = useState(true);
+  const [errorStats, setErrorStats] = useState('');
+
   const [usuarios, setUsuarios] = useState<Usuario[]>([]);
   const [total, setTotal] = useState(0);
   const [cargando, setCargando] = useState(true);
@@ -32,12 +35,17 @@ export default function Dashboard() {
   const [direccion, setDireccion] = useState('DESC');
   const [pagina, setPagina] = useState(1);
 
+  // Cargar estadísticas
   useEffect(() => {
+    setCargandoStats(true);
+    setErrorStats('');
     apiClient.get('/admin/estadisticas')
       .then(res => setEstadisticas(res.data))
-      .catch(() => setError('Error al cargar estadísticas.'));
+      .catch(() => setErrorStats('Error al cargar estadísticas.'))
+      .finally(() => setCargandoStats(false));
   }, []);
 
+  // Cargar usuarios
   useEffect(() => {
     setCargando(true);
     apiClient.get('/admin/usuarios', {
@@ -63,6 +71,54 @@ export default function Dashboard() {
 
   const totalPaginas = Math.ceil(total / 10);
 
+  // Renderizado de la sección de estadísticas
+  const renderStats = () => {
+    if (cargandoStats) {
+      return <div className="dashboard__stats-loading"><Loading /></div>;
+    }
+
+    if (errorStats) {
+      return <p className="dashboard__error">{errorStats}</p>;
+    }
+
+    if (!estadisticas) {
+      return <p className="dashboard__empty">No hay estadísticas disponibles.</p>;
+    }
+
+    return (
+      <div className="dashboard__stats">
+        <div className="stat-card">
+          <span className="stat-card__icon">👥</span>
+          <div>
+            <p className="stat-card__value">{estadisticas.total_usuarios}</p>
+            <p className="stat-card__label">Usuarios registrados</p>
+          </div>
+        </div>
+        <div className="stat-card">
+          <span className="stat-card__icon">❤️</span>
+          <div>
+            <p className="stat-card__value">{estadisticas.total_favoritos}</p>
+            <p className="stat-card__label">Favoritos guardados</p>
+          </div>
+        </div>
+        <div className="stat-card">
+          <span className="stat-card__icon">🔍</span>
+          <div>
+            <p className="stat-card__value">{estadisticas.total_busquedas}</p>
+            <p className="stat-card__label">Búsquedas realizadas</p>
+          </div>
+        </div>
+        <div className="stat-card">
+          <span className="stat-card__icon">🆕</span>
+          <div>
+            <p className="stat-card__value">{estadisticas.nuevos_esta_semana}</p>
+            <p className="stat-card__label">Nuevos esta semana</p>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="dashboard">
       <div className="dashboard__header">
@@ -71,38 +127,7 @@ export default function Dashboard() {
 
       <div className="dashboard__content">
         {/* Tarjetas de resumen */}
-        {estadisticas && (
-          <div className="dashboard__stats">
-            <div className="stat-card">
-              <span className="stat-card__icon">👥</span>
-              <div>
-                <p className="stat-card__value">{estadisticas.total_usuarios}</p>
-                <p className="stat-card__label">Usuarios registrados</p>
-              </div>
-            </div>
-            <div className="stat-card">
-              <span className="stat-card__icon">❤️</span>
-              <div>
-                <p className="stat-card__value">{estadisticas.total_favoritos}</p>
-                <p className="stat-card__label">Favoritos guardados</p>
-              </div>
-            </div>
-            <div className="stat-card">
-              <span className="stat-card__icon">🔍</span>
-              <div>
-                <p className="stat-card__value">{estadisticas.total_busquedas}</p>
-                <p className="stat-card__label">Búsquedas realizadas</p>
-              </div>
-            </div>
-            <div className="stat-card">
-              <span className="stat-card__icon">🆕</span>
-              <div>
-                <p className="stat-card__value">{estadisticas.nuevos_esta_semana}</p>
-                <p className="stat-card__label">Nuevos esta semana</p>
-              </div>
-            </div>
-          </div>
-        )}
+        {renderStats()}
 
         {/* Tabla de usuarios */}
         <div className="dashboard__table-section">
@@ -141,8 +166,11 @@ export default function Dashboard() {
                 <tbody>
                   {usuarios.length === 0 ? (
                     <tr>
-                      <td colSpan={4} style={{ textAlign: 'center', padding: '2rem' }}>
-                        No se encontraron usuarios
+                      <td colSpan={4} style={{ textAlign: 'center', padding: '2rem', color: 'var(--text-secondary)' }}>
+                        {busqueda
+                          ? `No se encontraron usuarios para "${busqueda}"`
+                          : 'No hay usuarios registrados todavía'
+                        }
                       </td>
                     </tr>
                   ) : (
