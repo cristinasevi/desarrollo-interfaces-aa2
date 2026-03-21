@@ -33,6 +33,9 @@ export default function Navigation() {
               )}
             </Link>
           )}
+          {usuario && usuario.rol !== 'admin' && (
+            <Link to="/perfil">Mi perfil</Link>
+          )}
           {usuario?.rol === 'admin' && (
             <Link to="/admin">Dashboard</Link>
           )}
