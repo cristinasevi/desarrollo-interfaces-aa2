@@ -23,7 +23,7 @@ type AuthAction =
   | { type: 'SET_CARGANDO'; payload: boolean };
 
 // Reducer
-function authReducer(state: AuthState, action: AuthAction): AuthState {
+export function authReducer(state: AuthState, action: AuthAction): AuthState {
   switch (action.type) {
     case 'LOGIN':
       return {
