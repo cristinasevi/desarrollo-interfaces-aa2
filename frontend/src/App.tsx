@@ -11,6 +11,7 @@ import MovieDetail from './pages/MovieDetail.tsx';
 import Login from './pages/Login.tsx';
 import Registro from './pages/Registro.tsx';
 import Loading from './components/Loading.tsx';
+import Dashboard from './pages/Dashboard.tsx';
 import './App.css';
 
 // Ruta protegida para usuarios logueados
@@ -39,6 +40,11 @@ function AppRoutes() {
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search />} />
           <Route path="/movie/:id" element={<MovieDetail />} />
+          <Route path="/admin" element={
+            <RutaAdmin>
+              <Dashboard />
+            </RutaAdmin>
+          } />
           <Route path="/login" element={<Login />} />
           <Route path="/registro" element={<Registro />} />
           <Route path="/favorites" element={
