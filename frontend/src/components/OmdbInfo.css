@@ -1,0 +1,49 @@
+.omdb-info {
+  margin: 3rem 0;
+  color: var(--text-primary);
+}
+
+.omdb-info h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.omdb-info__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.omdb-info__item {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+/* Ocupa toda la fila (para premios que son texto largo) */
+.omdb-info__item--full {
+  grid-column: 1 / -1;
+}
+
+.omdb-info__label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.omdb-info__value {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.omdb-info__rt {
+  font-weight: bold;
+  color: #e63946;
+}

@@ -6,6 +6,7 @@ import MovieGrid from '../components/MovieGrid.tsx';
 import Loading from '../components/Loading.tsx';
 import type { MovieDetail as MovieDetailType, CastMember, Movie } from '../types/movie.ts';
 import './MovieDetail.css';
+import OmdbInfo from '../components/OmdbInfo.tsx';
 
 export default function MovieDetail() {
   const { id } = useParams<{ id: string }>();
@@ -123,6 +124,9 @@ export default function MovieDetail() {
             </div>
           </div>
         </div>
+
+        {/* Datos extra de OMDb */}
+        <OmdbInfo titulo={movie.title} año={new Date(movie.release_date).getFullYear()} />
 
         {/* Reparto */}
         {cast.length > 0 && (
