@@ -12,6 +12,7 @@ import Login from './pages/Login.tsx';
 import Registro from './pages/Registro.tsx';
 import Loading from './components/Loading.tsx';
 import Dashboard from './pages/Dashboard.tsx';
+import DashboardModerador from './pages/DashboardModerador';
 import PerfilUsuario from './pages/PerfilUsuario';
 import './App.css';
 
@@ -29,6 +30,15 @@ function RutaAdmin({ children }: { children: React.ReactNode }) {
   if (cargando) return <Loading />;
   if (!usuario) return <Navigate to="/login" />;
   if (usuario.rol !== 'admin') return <Navigate to="/" />;
+  return <>{children}</>;
+}
+
+// Ruta para moderadores y admins
+function RutaModerador({ children }: { children: React.ReactNode }) {
+  const { usuario, cargando } = useAuth();
+  if (cargando) return <Loading />;
+  if (!usuario) return <Navigate to="/login" />;
+  if (!['moderator', 'admin'].includes(usuario.rol)) return <Navigate to="/" />;
   return <>{children}</>;
 }
 
@@ -50,6 +60,11 @@ function AppRoutes() {
             <RutaAdmin>
               <Dashboard />
             </RutaAdmin>
+          } />
+          <Route path="/moderador" element={
+            <RutaModerador>
+              <DashboardModerador />
+            </RutaModerador>
           } />
           <Route path="/login" element={<Login />} />
           <Route path="/registro" element={<Registro />} />

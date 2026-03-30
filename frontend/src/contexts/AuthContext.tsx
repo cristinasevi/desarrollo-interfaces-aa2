@@ -8,7 +8,7 @@ interface Usuario {
   id: number;
   nombre: string;
   email: string;
-  rol: 'user' | 'admin';
+  rol: 'user' | 'moderator' | 'admin';
 }
 
 interface AuthState {

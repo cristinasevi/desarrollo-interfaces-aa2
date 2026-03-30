@@ -5,6 +5,8 @@ const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const favoritosRoutes = require('./routes/favoritos');
 const adminRoutes = require('./routes/admin');
+const moderadorRoutes = require('./routes/moderador');
+const busquedasRoutes = require('./routes/busquedas');
 
 const app = express();
 
@@ -20,6 +22,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/auth', authRoutes);
 app.use('/api/favoritos', favoritosRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/moderador', moderadorRoutes);
+app.use('/api/busquedas', busquedasRoutes);
 
 // Ruta de health check
 app.get('/api/health', (req, res) => {
