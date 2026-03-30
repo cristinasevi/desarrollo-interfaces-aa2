@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
   nombre VARCHAR(100) NOT NULL,
   email VARCHAR(255) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
-  rol ENUM('user', 'admin') DEFAULT 'user',
+  rol ENUM('user', 'moderator', 'admin') DEFAULT 'user',
   activo BOOLEAN DEFAULT TRUE,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -38,7 +38,12 @@ CREATE TABLE IF NOT EXISTS busquedas (
   FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
 );
 
--- Usuario admin de prueba (password: Admin1234!)
+-- Usuario admin de prueba (password: admin123)
 INSERT INTO usuarios (nombre, email, password, rol) VALUES
-('Admin', 'admin@cinescope.com', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin')
+('Admin', 'admin@cinescope.com', '$2b$10$j2i5GDry7zUyCcribz.4eOQHqWOfCj6gEbCZIpbn15vM9XTaV8keS', 'admin')
+ON DUPLICATE KEY UPDATE id=id;
+
+-- Usuario moderador de prueba (password: admin123)
+INSERT INTO usuarios (nombre, email, password, rol) VALUES
+('Moderador', 'moderador@cinescope.com', '$2b$10$j2i5GDry7zUyCcribz.4eOQHqWOfCj6gEbCZIpbn15vM9XTaV8keS', 'moderator')
 ON DUPLICATE KEY UPDATE id=id;

@@ -26,12 +26,20 @@ const soloAdmin = (req, res, next) => {
   next();
 };
 
+// Permite acceso a moderadores y admins
+const soloModerador = (req, res, next) => {
+  if (!['moderator', 'admin'].includes(req.usuario.rol)) {
+    return res.status(403).json({ mensaje: 'Acceso denegado. Se requiere rol moderador o admin.' });
+  }
+  next();
+};
+
 // Solo permite acceso a users normales o admins (cualquier usuario autenticado)
 const soloUser = (req, res, next) => {
-  if (!['user', 'admin'].includes(req.usuario.rol)) {
+  if (!['user', 'moderator', 'admin'].includes(req.usuario.rol)) {
     return res.status(403).json({ mensaje: 'Acceso denegado.' });
   }
   next();
 };
 
-module.exports = { verificarToken, soloAdmin, soloUser };
+module.exports = { verificarToken, soloAdmin, soloModerador, soloUser };

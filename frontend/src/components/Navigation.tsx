@@ -33,18 +33,32 @@ export default function Navigation() {
               )}
             </Link>
           )}
-          {usuario && usuario.rol !== 'admin' && (
+          {/* Perfil solo para usuarios normales */}
+          {usuario && usuario.rol === 'user' && (
             <Link to="/perfil">Mi perfil</Link>
           )}
+          {/* Panel moderador (accesible también por admin) */}
+          {usuario?.rol === 'moderator' && (
+            <Link to="/moderador">Panel</Link>
+          )}
+          {/* Dashboard solo para admin */}
           {usuario?.rol === 'admin' && (
-            <Link to="/admin">Dashboard</Link>
+            <>
+              <Link to="/moderador">Panel</Link>
+              <Link to="/admin">Dashboard</Link>
+            </>
           )}
         </div>
 
         <div className="navigation__actions">
           {usuario ? (
             <div className="navigation__user">
-              <span className="navigation__username">👤 {usuario.nombre}</span>
+              <span className="navigation__username">
+                {usuario.rol === 'admin' && '🛡️'}
+                {usuario.rol === 'moderator' && '🎭'}
+                {usuario.rol === 'user' && '👤'}
+                {' '}{usuario.nombre}
+              </span>
               <button className="navigation__logout" onClick={handleLogout}>
                 Salir
               </button>

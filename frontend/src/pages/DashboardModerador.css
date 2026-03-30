@@ -1,0 +1,193 @@
+.mod-dashboard {
+  min-height: 100vh;
+  background: var(--bg-primary);
+}
+
+.mod-dashboard__header {
+  background: linear-gradient(135deg, #2d6a4f 0%, #40916c 100%);
+  padding: 2rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.mod-dashboard__header h1 {
+  font-size: 2rem;
+  color: #ffffff;
+  margin-bottom: 0.3rem;
+}
+
+.mod-dashboard__subtitle {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.95rem;
+}
+
+.mod-dashboard__content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.mod-dashboard__error {
+  color: #e63946;
+  text-align: center;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Tarjetas de estadísticas */
+.mod-dashboard__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.mod-stat-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.mod-stat-card__icon {
+  font-size: 2rem;
+}
+
+.mod-stat-card__value {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #40916c;
+  margin: 0;
+}
+
+.mod-stat-card__label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Grid de dos columnas */
+.mod-dashboard__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .mod-dashboard__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Secciones */
+.mod-dashboard__section {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.mod-dashboard__section h2 {
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.mod-dashboard__empty {
+  color: var(--text-secondary);
+  text-align: center;
+  padding: 2rem 0;
+  font-size: 0.95rem;
+}
+
+/* Lista de películas */
+.mod-peliculas-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.mod-pelicula-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  background: var(--bg-secondary);
+  transition: background 0.2s ease;
+}
+
+.mod-pelicula-item:hover {
+  background: var(--input-bg);
+}
+
+.mod-pelicula-item__rank {
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #40916c;
+  min-width: 28px;
+}
+
+.mod-pelicula-item__info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.mod-pelicula-item__titulo {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mod-pelicula-item__meta {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/* Lista de búsquedas */
+.mod-busquedas-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.mod-busqueda-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  background: var(--bg-secondary);
+}
+
+.mod-busqueda-item__rank {
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #40916c;
+  min-width: 28px;
+}
+
+.mod-busqueda-item__termino {
+  flex: 1;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.mod-busqueda-item__veces {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--input-bg);
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+}

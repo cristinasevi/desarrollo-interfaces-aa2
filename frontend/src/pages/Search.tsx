@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { searchMovies, getGenres } from '../services/tmdbApi.ts';
+import apiClient from '../services/apiClient.ts';
+import { useAuth } from '../contexts/AuthContext.tsx';
 import MovieGrid from '../components/MovieGrid.tsx';
 import SearchBar from '../components/SearchBar.tsx';
 import Loading from '../components/Loading.tsx';
@@ -10,7 +12,8 @@ import './Search.css';
 export default function Search() {
   const [searchParams] = useSearchParams();
   const query = searchParams.get('q') || '';
-  
+  const { usuario } = useAuth();
+
   const [movies, setMovies] = useState<Movie[]>([]);
   const [filteredMovies, setFilteredMovies] = useState<Movie[]>([]);
   const [genres, setGenres] = useState<Genre[]>([]);
@@ -28,11 +31,21 @@ export default function Search() {
 
     setLoading(true);
     setError('');
-    
+
     searchMovies(query)
       .then(data => {
         setMovies(data.results);
         setFilteredMovies(data.results);
+
+        // Registrar búsqueda en el backend si hay sesión activa
+        if (usuario) {
+          apiClient.post('/busquedas', {
+            termino: query,
+            resultados: data.results.length,
+          }).catch(() => {
+            // Silencioso: si falla el registro no afecta al usuario
+          });
+        }
       })
       .catch(err => {
         setError('Error en la búsqueda. Intenta de nuevo.');
@@ -41,13 +54,13 @@ export default function Search() {
       .finally(() => {
         setLoading(false);
       });
-  }, [query]);
+  }, [query, usuario]);
 
   useEffect(() => {
     let peliculas = movies;
 
     if (selectedGenre) {
-      peliculas = movies.filter(pelicula => 
+      peliculas = movies.filter(pelicula =>
         pelicula.genre_ids.includes(Number(selectedGenre))
       );
     }
@@ -81,8 +94,8 @@ export default function Search() {
             <div className="search__controls">
               <div className="search__filter">
                 <label>Filtrar por género:</label>
-                <select 
-                  value={selectedGenre} 
+                <select
+                  value={selectedGenre}
                   onChange={(e) => setSelectedGenre(e.target.value)}
                   className="search__select"
                 >
@@ -97,8 +110,8 @@ export default function Search() {
 
               <div className="search__sort">
                 <label>Ordenar por puntuación:</label>
-                <select 
-                  value={sortOrder} 
+                <select
+                  value={sortOrder}
                   onChange={(e) => setSortOrder(e.target.value)}
                   className="search__select"
                 >
