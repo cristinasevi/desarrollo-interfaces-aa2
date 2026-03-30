@@ -19,8 +19,11 @@ export default function Login() {
 
     try {
       const usuario = await login(email, password);
+      // Redirigir según el rol
       if (usuario.rol === 'admin') {
         navigate('/admin');
+      } else if (usuario.rol === 'moderator') {
+        navigate('/moderador');
       } else {
         navigate('/');
       }
